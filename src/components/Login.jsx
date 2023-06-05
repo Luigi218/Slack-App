@@ -2,6 +2,13 @@ import './Login.css'
 
 export default function Login () {
     return (
-        <h1>Login</h1>
+        <div className='login-body'>
+            <div className='home-image'>
+
+            </div>
+            <div className='form-container'>
+
+            </div>
+        </div>
     )
 }
