@@ -30,6 +30,11 @@ input {
     border: none;
     border-bottom: 1px solid white;
     background-color: black;
+    color: white
+}
+
+input:focus {
+    outline: none;
 }
 
 button {

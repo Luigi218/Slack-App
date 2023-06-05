@@ -17,7 +17,7 @@ export default function SignUp () {
                     <input type='password' placeholder='Enter your password...' />
                     <br />
                     <br />
-                    <input type='password' placeholder='Confirm password...' />
+                    <input type='password' placeholder='Confirm your password...' />
                     <br />
                     <br />
                     <button type='submit'>Sign Up</button>
