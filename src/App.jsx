@@ -33,7 +33,7 @@ function App() {
         <div>
           <SignUp onSignUpSuccess={handleSignUpSuccess} />
           <p>
-            Already have an account?{' '}
+             Already have an account?{' '}
             <span onClick={() => setShowSignUp(false)} style={{ cursor: 'pointer' }}>
             Login here!
             </span>
