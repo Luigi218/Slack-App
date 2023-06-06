@@ -47,7 +47,11 @@ export default function SignUp () {
                     <input type='password' value={confirmpassword} placeholder='Confirm your password...' onChange={(e) => {setConfirmPassword(e.target.value)}} />
                     <br />
                     <br />
+<<<<<<< HEAD
                     <button type='submit'style={{ cursor: 'pointer' }}>Sign Up</button>
+=======
+                    <button type='submit'>Sign Up</button>
+>>>>>>> origin/wip
                 </form>
             </div>
         </div>
