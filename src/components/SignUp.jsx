@@ -12,13 +12,17 @@ export default function SignUp () {
         console.log( {email, password, confirmpassword})
     
     const response = await fetch ('http://206.189.91.54/api/v1/auth/', {
-            method: 'POST',
-            body: {
-                email,
-                password,
-                password_confirmation: confirmpassword
-            }
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            email: email,
+            password: password,
+            password_confirmation: confirmpassword
         })
+        
+    })
 
     const body = await response.json()
     console.log(body)

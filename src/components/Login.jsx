@@ -14,8 +14,8 @@ export default function Login () {
     const response = await fetch ('http://206.189.91.54/api/v1/auth/sign_in', {
             method: 'POST',
             body: {
-                email,
-                password,
+                email: email,
+                password: password,
             }
         })
     
