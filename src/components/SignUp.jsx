@@ -7,9 +7,21 @@ export default function SignUp () {
     const [password, setPassword] = useState('')
     const [confirmpassword, setConfirmPassword] = useState('')
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         console.log( {email, password, confirmpassword})
+    
+    const response = await fetch ('http://206.189.91.54/api/v1/auth/', {
+            method: 'POST',
+            body: {
+                email,
+                password,
+                password_confirmation: confirmpassword
+            }
+        })
+
+    const body = await response.json()
+    console.log(body)
     }
 
     return (

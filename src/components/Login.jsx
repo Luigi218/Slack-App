@@ -6,9 +6,21 @@ export default function Login () {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         console.log( {email, password})
+    
+
+    const response = await fetch ('http://206.189.91.54/api/v1/auth/sign_in', {
+            method: 'POST',
+            body: {
+                email,
+                password,
+            }
+        })
+    
+    const body = await response.json()
+    console.log(body)
     }
 
     return (
