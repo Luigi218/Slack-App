@@ -12,12 +12,15 @@ export default function Login () {
     
 
     const response = await fetch ('http://206.189.91.54/api/v1/auth/sign_in', {
-            method: 'POST',
-            body: {
-                email: email,
-                password: password,
-            }
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            email: email,
+            password: password,
         })
+    })
     
     const body = await response.json()
     console.log(body)
