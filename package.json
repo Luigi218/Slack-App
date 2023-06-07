@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 {
   "name": "slack-clone",
+=======
+{ "name": "slack-clone",
+
+>>>>>>> a2d73a50e7baa21cce1540ee615b66bf9fc0c709
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,6 +15,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2d73a50e7baa21cce1540ee615b66bf9fc0c709
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.2",
@@ -19,6 +28,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-draft-wysiwyg": "^1.15.0"
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2d73a50e7baa21cce1540ee615b66bf9fc0c709
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
