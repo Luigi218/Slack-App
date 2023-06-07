@@ -26,7 +26,7 @@ export default function Login({ onSignUpClick, onLogin }) {
 
     if (response.ok) {
       // Call the onLogin callback function passed from the App component
-      onLogin();
+      onLogin(body.data);
     }
   };
 

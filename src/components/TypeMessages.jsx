@@ -15,7 +15,7 @@ export default function TypeMessages() {
   };
 
   return (
-    <Grid container spacing={1} alignItems="center">
+    <Grid container spacing={1} alignItems="center" style={{alignItems:'center', display: 'flex'}}>
       <Grid item xs={12}>
         <Grid container spacing={1} justifyContent="space-between" alignItems="center">
           <Grid item style={{display: 'flex'}}>
