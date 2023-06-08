@@ -73,7 +73,7 @@ function App() {
           <MessagesBody />
         </Grid>
         <Grid item xs={2} style={{ padding: '27px' }}>
-          <TypeMessages />
+          <TypeMessages loginHeader={loginHeaders} />
         </Grid>
       </Grid>
     </Grid>
