@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TextField, Button, Grid } from '@mui/material';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
@@ -9,13 +9,15 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import SendIcon from '@mui/icons-material/Send';
 
 export default function TypeMessages() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle the message submission logic here
-  };
 
+  const [message, setMessage] = useState('')
+  const onSubmit = (e) => {
+    if (e.key === 'Enter')
+    console.log(message)
+    
+  }
   return (
-    <Grid container spacing={1} alignItems="center">
+    <Grid container spacing={1} alignItems="center" style={{alignItems:'center', display: 'flex'}}>
       <Grid item xs={12}>
         <Grid container spacing={1} justifyContent="space-between" alignItems="center">
           <Grid item style={{display: 'flex'}}>
@@ -28,6 +30,9 @@ export default function TypeMessages() {
               variant="outlined"
               fullWidth
               placeholder="Type a message"
+              value={message}
+              onChange={ (e) => {setMessage(e.target.value)}}
+              onKeyDown={onSubmit}
             />
           </Grid>
           <Grid item style={{display: 'flex'}}>

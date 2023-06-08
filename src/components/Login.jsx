@@ -25,8 +25,10 @@ export default function Login({ onSignUpClick, onLogin }) {
 
     if (response.ok) {
       // Call the onLogin callback function passed from the App component
-      onLogin();
+      onLogin(body.data);
     }
+    console.log(response.headers.get('access-token'))
+    //testing getting of headers
   };
 
   return (

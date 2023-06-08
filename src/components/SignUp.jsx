@@ -29,7 +29,7 @@ export default function SignUp ({onSignUpSuccess, onLoginReturn}) {
 
     if (response.ok) {
         // Call the onLogin callback function passed from the App component
-        onSignUpSuccess();
+        onSignUpSuccess(body.data);
       }
     }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -8,6 +8,13 @@ import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 
 export default function DirectMessages() {
+
+  const [receiver, setReceiver] = useState('')
+  const onSubmit = (e) => {
+    if (e.key === 'Enter')
+    console.log(receiver)
+    
+  }
   return (
     <>
       <Accordion style={{ boxShadow: 'none' }}>
@@ -36,6 +43,9 @@ export default function DirectMessages() {
             variant="outlined"
             fullWidth
             placeholder="Search user"
+            value={receiver}
+            onChange={ (e) => {setReceiver(e.target.value)}}
+            onKeyDown={onSubmit}
           />
         </AccordionDetails>
       </Accordion>
