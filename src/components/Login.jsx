@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import './Login.css';
 
@@ -24,9 +23,21 @@ export default function Login({ onSignUpClick, onLogin }) {
     const body = await response.json();
     console.log(body);
 
+    const headers = response.headers;
+    const accessToken = headers.get('access-token');
+    const client = headers.get('client');
+    const expiry = headers.get('expiry');
+    const uid = headers.get('uid');
+
+
     if (response.ok) {
       // Call the onLogin callback function passed from the App component
-      onLogin();
+      onLogin(body.data, {
+        'access-token': accessToken,
+        client,
+        expiry,
+        uid,
+      });
     }
   };
 
@@ -72,4 +83,3 @@ export default function Login({ onSignUpClick, onLogin }) {
     </div>
   );
 }
-
