@@ -52,19 +52,13 @@ export default function Channels({ loginHeaders }) {
         ...loginHeaders,
       },
     });
-
+  
     if (response.ok) {
       const channelData = await response.json();
-      if (Array.isArray(channelData.channels)) {
-        setChannels(channelData.channels);
-      } else {
-        console.error('Invalid channel data');
-      }
-      closeModal();
-    } else {
-      console.error('Error creating channel');
+       console.log(channelData)
     }
   };
+  
 
   const openModal = () => {
     setIsModalOpen(true);
