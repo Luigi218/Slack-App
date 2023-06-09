@@ -1,0 +1,15 @@
+.channels-container {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .channel {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .channel:hover {
+    background-color: #f1f1f1;
+  }
