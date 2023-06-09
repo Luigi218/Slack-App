@@ -8,14 +8,35 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import SendIcon from '@mui/icons-material/Send';
 
-export default function TypeMessages() {
+export default function TypeMessages( {setMessage, loginHeaders} ) {
 
-  const [message, setMessage] = useState('')
-  const onSubmit = (e) => {
-    if (e.key === 'Enter')
-    console.log(message)
+  const [typeMessage, setTypeMessage] = useState('')
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    setMessage(typeMessage)
     
+    const response = await fetch('http://206.189.91.54/api/v1/messages', {
+      method: 'POST',
+      body: JSON.stringify({
+        receiver_id: 3623,
+        receiver_class: "User",
+        body: typeMessage,
+      }),
+      headers: {
+        ...loginHeaders,
+      },
+    });
+  
+    if (response.ok) {
+      const messageData = await response.json();
+      console.log(messageData);
+      setMessage(''); // Clear the input field
+    } else {
+      // Error occurred while sending the message
+      console.error('Error sending message:', response.statusText);
+    }
   }
+
   return (
     <Grid container spacing={1} alignItems="center" style={{alignItems:'center', display: 'flex'}}>
       <Grid item xs={12}>
@@ -26,14 +47,15 @@ export default function TypeMessages() {
             <Button size="small" color="inherit"><FormatUnderlinedIcon /></Button>
           </Grid>
           <Grid item xs={10}>
-            <TextField
-              variant="outlined"
-              fullWidth
-              placeholder="Type a message"
-              value={message}
-              onChange={ (e) => {setMessage(e.target.value)}}
-              onKeyDown={onSubmit}
-            />
+            <form onSubmit={onSubmit}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                placeholder="Type a message"
+                value={typeMessage}
+                onChange={ (e) => {setTypeMessage(e.target.value)}}
+              />
+            </form>
           </Grid>
           <Grid item style={{display: 'flex'}}>
             <Button size="small" color="inherit"><KeyboardArrowUpIcon /></Button>

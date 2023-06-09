@@ -23,12 +23,21 @@ export default function Login({ onSignUpClick, onLogin }) {
     const body = await response.json();
     console.log(body);
 
+    const headers = response.headers;
+    const accessToken = headers.get('access-token');
+    const client = headers.get('client');
+    const expiry = headers.get('expiry');
+    const uid = headers.get('uid');
+
     if (response.ok) {
       // Call the onLogin callback function passed from the App component
-      onLogin(body.data);
+      onLogin(body.data, {
+        accessToken,
+        client,
+        expiry,
+        uid,
+      });
     }
-    console.log(response.headers.get('access-token'))
-    //testing getting of headers
   };
 
   return (

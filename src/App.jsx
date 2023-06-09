@@ -12,18 +12,24 @@ import SignUp from './components/SignUp';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track user's authentication status
   const [showSignUp, setShowSignUp] = useState(false);
-  const [userId, setUserId] = useState(null)
+  const [userEmail, setUserEmail] = useState(null)
+  const [loginHeaders, setLoginHeaders] = useState(null)
+  const [directMessage, setDirectMessage] = useState(null)
 
   // Function to handle successful login
-  const handleLoginSuccess = (data) => {
+  const handleLoginSuccess = (data, authHeaders) => {
     setIsLoggedIn(true);
-    setUserId(data.email);
+    setUserEmail(data.email);
+    setLoginHeaders(authHeaders);
+    console.log('Auth Headers', authHeaders)
   };
 
   // Function to handle successful signup
-  const handleSignUpSuccess = (data) => {
+  const handleSignUpSuccess = (data, authHeaders) => {
     setIsLoggedIn(true);
-    setUserId(data.email)
+    setUserEmail(data.email)
+    setLoginHeaders(authHeaders);
+    console.log('Auth Headers', authHeaders)
   };
 
   const handleSignUpClick = () => {
@@ -33,6 +39,10 @@ function App() {
   const handleLoginClick = () => {
     setShowSignUp(false);
   };
+
+  const handleDirectMessage = (typeMessage) => {
+    setDirectMessage(typeMessage)
+  }
 
   if (!isLoggedIn) {
     if (showSignUp) {
@@ -54,13 +64,13 @@ function App() {
     <Grid container style={{ marginTop: '65px', backgroundColor: 'white', borderRadius: '20px', width: '1400px', height: '930px' }}>
       <Grid item container  direction= 'column' xs={3} style={{borderRight: 'solid 1px #3F0E40', padding: '30px'}}>
         <Grid item xs={5} style={{borderBottom: 'solid 1px #3F0E40'}}><Sidebar /></Grid>
-        <Grid item xs={3} style={{borderBottom: 'solid 1px #3F0E40'}}><Channels /></Grid>
+        <Grid item xs={3} style={{borderBottom: 'solid 1px #3F0E40'}}><Channels loginHeaders={loginHeaders} /></Grid>
         <Grid item xs={4}><DirectMessages /></Grid>
       </Grid>
       <Grid item container  direction= 'column' xs={9} style={{}}>
-        <Grid item xs={1} style={{borderBottom: 'solid 1px #3F0E40', paddingLeft: '10px', paddingRight:'20px'}}><Topbar userId={userId}/></Grid>
-        <Grid item xs={8} style={{borderBottom: 'solid 1px #3F0E40', padding: '20px'}}><MessagesBody /></Grid>
-        <Grid item xs={2} style={{padding: '27px'}}><TypeMessages /></Grid>
+        <Grid item xs={1} style={{borderBottom: 'solid 1px #3F0E40', paddingLeft: '10px', paddingRight:'20px'}}><Topbar userEmail={userEmail}/></Grid>
+        <Grid item xs={8} style={{borderBottom: 'solid 1px #3F0E40', padding: '20px'}}><MessagesBody directMessage={directMessage} userEmail={userEmail} /></Grid>
+        <Grid item xs={2} style={{padding: '27px'}}><TypeMessages setMessage={handleDirectMessage} loginHeaders={loginHeaders} /></Grid>
       </Grid>  
     </Grid>
   );

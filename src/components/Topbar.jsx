@@ -2,14 +2,14 @@ import React from 'react';
 import { Grid, AppBar, Toolbar, InputBase, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-export default function Topbar( {userId} ) {
+export default function Topbar( {userEmail} ) {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
     <div style={{ height: 'auto' }}>
       <p>
         <span role="img" aria-label="Waving Hand" style={{ fontSize: '2rem' }}>👋</span> 
         <span style={{ color: 'black' }}>Hi User </span>
-        <span style={{ color: '#A44CD3' }}>{userId}</span>
+        <span style={{ color: '#A44CD3' }}>{userEmail}</span>
         <span style={{ color: 'black' }}>!</span>
       </p>
     </div>
