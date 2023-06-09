@@ -11,11 +11,13 @@ import TextField from '@mui/material/TextField';
 import LockIcon from '@mui/icons-material/Lock';
 import './Channels.css';
 
-export default function Channels({ loginHeaders }) {
+export default function Channels({ loginHeaders, onSelectChannel }) {
   const [channelName, setChannelName] = useState('');
   const [userIds, setUserIds] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [channels, setChannels] = useState([]);
+  const [selectedChannel, setSelectedChannel] = useState('');
+
 
   useEffect(() => {
     fetchChannels();
@@ -30,6 +32,7 @@ export default function Channels({ loginHeaders }) {
 
     if (response.ok) {
       const channelData = await response.json();
+      console.log(channelData)
       if (Array.isArray(channelData.data)) {
         setChannels(channelData.data);
       } else {
@@ -156,7 +159,9 @@ export default function Channels({ loginHeaders }) {
 
       <div>
         {channels.map((channel) => (
-          <div key={channel.id} className="channel">
+          <div key={channel.id}
+          className={`channel ${selectedChannel === channel.name ? 'selected' : ''}`}
+          onClick={() => onSelectChannel(channel.name)}>
             <LockIcon style={{ marginRight: '8px', fontSize: '18px', color: '#A44CD3' }} />
             {channel.name}
           </div>

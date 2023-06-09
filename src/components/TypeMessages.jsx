@@ -16,8 +16,8 @@ export default function TypeMessages({ loginHeader }) {
     const response = await fetch('http://206.189.91.54/api/v1/messages', {
       method: 'POST',
       body: JSON.stringify({
-        receiver_id: 3649,
-        receiver_class: "User",
+        receiver_id: 3650,
+        receiver_class: 'Channel',
         body: message,
       }),
       headers: {
