@@ -5,7 +5,8 @@ import LockIcon from '@mui/icons-material/Lock';
 import './MessagesBody.css';
 
 export default function MessagesBody({ loginHeaders, selectedChannel, selectedChannelId }) {
-  const [open, setOpen] = useState(false);
+  const [openAddMember, setOpenAddMember] = useState(false);
+  const [openChannelDetails, setOpenChannelDetails] = useState(false);
   const [memberId, setMemberId] = useState('');
   const [channelDetails, setChannelDetails] = useState(null);
 
@@ -62,41 +63,25 @@ export default function MessagesBody({ loginHeaders, selectedChannel, selectedCh
     }
   };
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleOpenAddMember = () => {
+    setOpenAddMember(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseAddMember = () => {
+    setOpenAddMember(false);
   };
 
-  const handleClickChannelHeader = async () => {
-    try {
-      const response = await fetch(`http://206.189.91.54/api/v1/channels/${selectedChannelId}`, {
-        method: 'GET',
-        headers: {
-          ...loginHeaders,
-        },
-        params: {
-          id: selectedChannelId,
-        },
-      });
+  const handleOpenChannelDetails = () => {
+    setOpenChannelDetails(true);
+  };
 
-      if (response.ok) {
-        const channelData = await response.json();
-        console.log(channelData)
-        setChannelDetails(channelData);
-      } else {
-        console.error('Error fetching channel details:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error fetching channel details:', error);
-    }
+  const handleCloseChannelDetails = () => {
+    setOpenChannelDetails(false);
   };
 
   return (
     <Box className="messages-body">
-      <div className="channel-header" onClick={handleClickChannelHeader}>
+      <div className="channel-header" onClick={handleOpenChannelDetails}>
         {selectedChannel && (
           <span className="channel-name">
             <LockIcon className="lock-icon" />
@@ -108,12 +93,12 @@ export default function MessagesBody({ loginHeaders, selectedChannel, selectedCh
         variant="contained"
         size="small"
         startIcon={<PersonAddIcon style={{ color: 'white' }} />}
-        onClick={handleOpen}
+        onClick={handleOpenAddMember}
         style={{ width: 'fit-content', backgroundColor: '#A44CD3' }}
       >
         Add Member
       </Button>
-      <Modal open={open} onClose={handleClose}>
+      <Modal open={openAddMember} onClose={handleCloseAddMember}>
         <Box
           sx={{
             position: 'absolute',
@@ -138,6 +123,35 @@ export default function MessagesBody({ loginHeaders, selectedChannel, selectedCh
           <Button onClick={handleAddMember} variant="contained" style={{ marginTop: '16px' }}>
             Add Member
           </Button>
+        </Box>
+      </Modal>
+      <Modal open={openChannelDetails} onClose={handleCloseChannelDetails}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            bgcolor: 'white',
+            p: 4,
+            outline: 'none',
+            borderRadius: '8px',
+          }}
+        >
+          {channelDetails && (
+            <>
+              <h2>Channel Details</h2>
+              <p>Channel Name: {channelDetails.data.name}</p>
+              <p>Channel ID: {channelDetails.data.id}</p>
+              <p>Channel Owner: {channelDetails.data.owner_id}</p>
+              <p>Channel Members:</p>
+              <ul>
+                {channelDetails.data.channel_members && channelDetails.data.channel_members.map((member) => (
+                  <li key={member.id}>{member.user_id}</li>
+                ))}
+              </ul>
+            </>
+          )}
         </Box>
       </Modal>
     </Box>

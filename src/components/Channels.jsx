@@ -17,7 +17,7 @@ export default function Channels({ loginHeaders, onSelectChannel, onSelectId }) 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [channels, setChannels] = useState([]);
   const [selectedChannel, setSelectedChannel] = useState('');
-  const [selectedChannelId, setSelectedChannelId] = useState(null);
+
 
 
 
