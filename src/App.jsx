@@ -15,11 +15,14 @@ function App() {
   const [userEmail, setUserEmail] = useState(null);
   const [loginHeaders, setLoginHeaders] = useState(null);
   const [selectedChannelName, setSelectedChannelName] = useState('');
+  const [selectedChannelId, setSelectedChannelId] = useState('');
+  
+
 
   const handleLoginSuccess = (data, authHeaders) => {
     setIsLoggedIn(true);
     setUserEmail(data.email);
-    setLoginHeaders(authHeaders); // Changed from setAuthHeaders to setLoginHeaders
+    setLoginHeaders(authHeaders); 
     console.log('Auth Headers:', authHeaders);
   };
 
@@ -60,7 +63,7 @@ function App() {
           <Sidebar />
         </Grid>
         <Grid item xs={3} style={{ borderBottom: 'solid 1px #3F0E40' }}>
-          <Channels loginHeaders={loginHeaders} onSelectChannel={setSelectedChannelName}/>
+          <Channels loginHeaders={loginHeaders} onSelectChannel={setSelectedChannelName} onSelectId={setSelectedChannelId}/>
         </Grid>
         <Grid item xs={4}>
           <DirectMessages loginHeaders={loginHeaders} />
@@ -71,7 +74,7 @@ function App() {
           <Topbar userEmail={userEmail} />
         </Grid>
         <Grid item xs={8} style={{ borderBottom: 'solid 1px #3F0E40', padding: '20px' }}>
-          <MessagesBody loginHeaders={loginHeaders} selectedChannel={selectedChannelName}/>
+          <MessagesBody loginHeaders={loginHeaders} selectedChannel={selectedChannelName} selectedChannelId={selectedChannelId}/>
         </Grid>
         <Grid item xs={2} style={{ padding: '27px' }}>
           <TypeMessages loginHeader={loginHeaders} />

@@ -1,44 +1,48 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Box, Modal, TextField } from '@mui/material';
+import { Box, Button, Modal, TextField } from '@mui/material';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import LockIcon from '@mui/icons-material/Lock';
+import './MessagesBody.css';
 
-export default function MessagesBody({ loginHeaders, selectedChannelName }) {
-  const [channelName, setChannelName] = useState('');
+export default function MessagesBody({ loginHeaders, selectedChannel, selectedChannelId }) {
   const [open, setOpen] = useState(false);
   const [memberId, setMemberId] = useState('');
-  console.log(selectedChannelName)
+  const [channelDetails, setChannelDetails] = useState(null);
+
   useEffect(() => {
-    // Fetch channel details when component mounts
-    getChannelDetails();
-  }, []);
+    const getChannelDetails = async () => {
+      try {
+        const response = await fetch(`http://206.189.91.54/api/v1/channels/${selectedChannelId}`, {
+          method: 'GET',
+          headers: {
+            ...loginHeaders,
+          },
+          params: {
+            id: selectedChannelId,
+          },
+        });
 
-  const getChannelDetails = async () => {
-    try {
-      const response = await fetch('http://206.189.91.54/api/v1/channels/3', {
-        method: 'GET',
-        headers: {
-          ...loginHeaders,
-        },
-      });
-
-      if (response.ok) {
-        const channelData = await response.json();
-        setChannelName(channelData.name);
-      } else {
-        console.error('Error retrieving channel details:', response.statusText);
+        if (response.ok) {
+          const channelData = await response.json();
+          setChannelDetails(channelData);
+        } else {
+          console.error('Error fetching channel details:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching channel details:', error);
       }
-    } catch (error) {
-      console.error('Error retrieving channel details:', error);
-    }
-  };
+    };
+
+    getChannelDetails();
+  }, [selectedChannelId, loginHeaders]);
 
   const handleAddMember = async () => {
     try {
       const response = await fetch('http://206.189.91.54/api/v1/channel/add_member', {
         method: 'POST',
         body: JSON.stringify({
-          id: 4649, // Replace with the appropriate channel ID
-          member_id: memberId, // Use the entered member ID
+          id: selectedChannelId,
+          member_id: memberId,
         }),
         headers: {
           ...loginHeaders,
@@ -50,14 +54,11 @@ export default function MessagesBody({ loginHeaders, selectedChannelName }) {
         const addData = await response.json();
         console.log(addData);
         console.log('Member added successfully!');
-        // Perform any necessary actions or updates upon successful addition of a member
       } else {
         console.error('Error adding member:', response.statusText);
-        // Handle error case if the member addition fails
       }
     } catch (error) {
       console.error('Error adding member:', error);
-      // Handle any network or other errors that occur during the API call
     }
   };
 
@@ -69,9 +70,40 @@ export default function MessagesBody({ loginHeaders, selectedChannelName }) {
     setOpen(false);
   };
 
+  const handleClickChannelHeader = async () => {
+    try {
+      const response = await fetch(`http://206.189.91.54/api/v1/channels/${selectedChannelId}`, {
+        method: 'GET',
+        headers: {
+          ...loginHeaders,
+        },
+        params: {
+          id: selectedChannelId,
+        },
+      });
+
+      if (response.ok) {
+        const channelData = await response.json();
+        console.log(channelData)
+        setChannelDetails(channelData);
+      } else {
+        console.error('Error fetching channel details:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error fetching channel details:', error);
+    }
+  };
+
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-      <h2>{selectedChannelName}</h2>
+    <Box className="messages-body">
+      <div className="channel-header" onClick={handleClickChannelHeader}>
+        {selectedChannel && (
+          <span className="channel-name">
+            <LockIcon className="lock-icon" />
+            {selectedChannel}
+          </span>
+        )}
+      </div>
       <Button
         variant="contained"
         size="small"

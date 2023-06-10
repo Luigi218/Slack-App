@@ -1,0 +1,31 @@
+.messages-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+  }
+  
+  .channel-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .lock-icon {
+    margin-right: 8px;
+    font-size: 18px;
+    color: #A44CD3; 
+  }
+  
+  .channel-name {
+    margin-right: 8px;
+    color: black;
+    display: flex;
+    align-items: center;
+  }
+  
+  .channel-header:hover {
+    background-color: #f0f0f0;
+  }
+  
